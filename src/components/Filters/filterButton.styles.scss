@@ -1,0 +1,7 @@
+.radioBtn:checked + label {
+  background-color: #198754;
+  color: white;
+}
+input[type='radio'] {
+  display: none;
+}
