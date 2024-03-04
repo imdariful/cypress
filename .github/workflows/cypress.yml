@@ -2,26 +2,30 @@ name: Cypress Test
 
 on:
   push:
-  
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Run Cypress Tests
-      uses: cypress-io/github-action@v2
-      with:
-        start: npm run dev
-        wait-on: 'http://localhost:5173'
-        # other configuration options...
+      # start the server and wait for it to respond
+      - name: Start Server
+        run: npm run dev
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v2
+        with:
+          wait-on: 'http://localhost:5173'
+          wait-on-timeout: 120
+          # other configuration options...
