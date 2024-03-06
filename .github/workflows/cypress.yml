@@ -43,7 +43,7 @@ jobs:
         uses: dawidd6/action-send-mail@v2
         with:
           server_address: 'smtp.gmail.com'
-          server_port: '587'
+          server_port: 587
           username: 'reportcypress@gmail.com'
           password: 'K8NbZegNxtYnuLcEAoi9'
           subject: 'Cypress Test Report'
