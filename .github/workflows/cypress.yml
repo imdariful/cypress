@@ -42,12 +42,12 @@ jobs:
       - name: Send Email with Mochawesome Report
         uses: dawidd6/action-send-mail@v2
         with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: reportcypress
-          password: K8NbZegNxtYnuLcEAoi9
+          server_address: 'smtp.gmail.com'
+          server_port: '587'
+          username: 'reportcypress'
+          password: 'K8NbZegNxtYnuLcEAoi9'
           subject: 'Cypress Test Report'
-          from: reportcypress@gmail.com
-          to: ariful.rony10@gmail.com
+          from: 'reportcypress@gmail.com'
+          to: 'ariful.rony10@gmail.com'
           text: 'Please find the attached Mochawesome test report.'
           attachments: 'cypress/reports/mochawesome-report/mochawesome.json'
