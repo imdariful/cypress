@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test:cypress": "cypress run --config baseUrl=http://localhost:5000",
+    "test:cypress": "cypress run --config baseUrl=http://localhost:5173",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
