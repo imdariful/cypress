@@ -55,7 +55,7 @@ jobs:
       - name: Send Email with Mochawesome Report
         run: |
           npm install nodemailer
-          node -e "const nodemailer = require('nodemailer'); const transporter = nodemailer.createTransport({ host: 'smtp.example.com', port: 587, auth: { user: '$EMAIL_USERNAME', pass: '$EMAIL_PASSWORD' } }); transporter.sendMail({ from: 'your-email@example.com', to: 'recipient-email@example.com', subject: 'Cypress Test Report', text: 'Please find the attached Mochawesome test report.', attachments: [{ path: 'cypress/reports/mochawesome-report/mochawesome.json' }] }, (error, info) => { if (error) { console.error(error); } else { console.log('Email sent: ' + info.response); } });"
+          node -e "const nodemailer = require('nodemailer'); const transporter = nodemailer.createTransport({ host: 'smtp.gmail.com', port: 587, auth: { user: '$EMAIL_USERNAME', pass: '$EMAIL_PASSWORD' } }); transporter.sendMail({ from: 'your-email@example.com', to: 'recipient-email@example.com', subject: 'Cypress Test Report', text: 'Please find the attached Mochawesome test report.', attachments: [{ path: 'cypress/reports/mochawesome-report/mochawesome.json' }] }, (error, info) => { if (error) { console.error(error); } else { console.log('Email sent: ' + info.response); } });"
         env:
           EMAIL_USERNAME: 'reportcypress@gmail.com'
           EMAIL_PASSWORD: 'K8NbZegNxtYnuLcEAoi9'
