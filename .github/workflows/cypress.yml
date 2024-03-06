@@ -21,10 +21,10 @@ jobs:
 
       - name: Start Application
         run: npm run dev
-        
+
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2
         with:
-          wait-on: 'http://localhost:5173/'
+          wait-on: 'http://127.0.0.1:5173/'
           wait-on-timeout: 120
