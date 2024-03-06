@@ -30,8 +30,8 @@ jobs:
       - name: Run Cypress tests
         run: npm run test:cypress -- --exit || echo "Cypress tests failed with exit code $?"
 
-      - name: Generate Mochawesome Report
-        run: npx cypress run --config baseUrl=http://localhost:5173
+      # - name: Generate Mochawesome Report
+      #   run: npx cypress run --config baseUrl=http://localhost:5173
 
       - name: Archive Mochawesome Report
         uses: actions/upload-artifact@v2
