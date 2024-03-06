@@ -39,23 +39,16 @@ jobs:
           name: mochawesome-report
           path: cypress/reports
 
-      # - name: Send Email with Mochawesome Report
-      #   uses: dawidd6/action-send-mail@v2
-      #   with:
-      #     server_address: 'smtp.gmail.com'
-      #     server_port: 587
-      #     username: 'reportcypress'
-      #     password: 'K8NbZegNxtYnuLcEAoi9'
-      #     subject: 'Cypress Test Report'
-      #     from: 'reportcypress@gmail.com'
-      #     to: 'ariful.rony10@gmail.com'
-      #     body: 'Please find the attached Mochawesome test report.'
-      #     attachments: 'cypress/reports/mochawesome-report/mochawesome.json'
-      #     content_type: 'text/plain'
       - name: Send Email with Mochawesome Report
-        run: |
-          npm install nodemailer
-          node -e "const nodemailer = require('nodemailer'); const transporter = nodemailer.createTransport({ service: 'Gmail', auth: { user: '$EMAIL_USERNAME', pass: '$EMAIL_PASSWORD' }, secure: true, port: 465 }); transporter.sendMail({ from: 'reportcypress@gmail.com', to: 'ariful.rony10@gmail.com', subject: 'Cypress Test Report', text: 'Please find the attached Mochawesome test report.', attachments: [{ path: 'cypress/reports/mochawesome-report/mochawesome.json' }] }, (error, info) => { if (error) { console.error(error); } else { console.log('Email sent: ' + info.response); } });"
-        env:
-          EMAIL_USERNAME: 'reportcypress@gmail.com'
-          EMAIL_PASSWORD: 'K8NbZegNxtYnuLcEAoi9'
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: 'smtp-mail.outlook.com'
+          server_port: 587
+          username: 'githubreport@outlook.com'
+          password: "'kq'x;u@!n94'sg6W8T`"
+          subject: 'Cypress Test Report'
+          from: 'githubreport@outlook.com'
+          to: 'ariful.rony10@gmail.com'
+          body: 'Please find the attached Mochawesome test report.'
+          attachments: 'cypress/reports/mochawesome-report/mochawesome.json'
+          content_type: 'text/plain'
