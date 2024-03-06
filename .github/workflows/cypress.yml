@@ -44,7 +44,7 @@ jobs:
         with:
           server_address: 'smtp.gmail.com'
           server_port: 587
-          username: 'reportcypress@gmail.com'
+          username: 'reportcypress'
           password: 'K8NbZegNxtYnuLcEAoi9'
           subject: 'Cypress Test Report'
           from: 'reportcypress@gmail.com'
