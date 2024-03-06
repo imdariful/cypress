@@ -1,7 +1,7 @@
 name: Cypress Test
 
 on:
-  push: 
+  push:
     branches:
       - main
 
@@ -21,9 +21,10 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Start Application
-        run: npm run dev && npx cypress run
-
+      - name: Start Application and Wait
+        run: npm run dev &
+          sleep 10
+          npx wait-on 'http://127.0.0.1:5173/' --timeout 120000
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2
