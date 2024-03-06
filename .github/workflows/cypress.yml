@@ -49,5 +49,6 @@ jobs:
           subject: 'Cypress Test Report'
           from: 'reportcypress@gmail.com'
           to: 'ariful.rony10@gmail.com'
-          text: 'Please find the attached Mochawesome test report.'
+          body: 'Please find the attached Mochawesome test report.'
           attachments: 'cypress/reports/mochawesome-report/mochawesome.json'
+          content_type: 'text/plain'
