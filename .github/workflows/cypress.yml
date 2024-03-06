@@ -1,4 +1,4 @@
-name: Cypress Test
+name: Cypress Tests
 
 on:
   push:
@@ -6,28 +6,23 @@ on:
       - main
 
 jobs:
-  test:
+  cypress:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 14
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Start Application and Wait
-        run: npm run dev &
-          sleep 10
-          npx wait-on 'http://127.0.0.1:5173/' --timeout 120000
+      - name: Build Vite project
+        run: npm run build
 
-      - name: Run Cypress Tests
-        uses: cypress-io/github-action@v2
-        with:
-          wait-on: 'http://127.0.0.1:5173/'
-          wait-on-timeout: 120
+      - name: Run Cypress tests
+        run: npm run test:cypress
