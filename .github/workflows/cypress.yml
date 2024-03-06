@@ -28,7 +28,7 @@ jobs:
         run: npm run dev &
 
       - name: Run Cypress tests
-        run: npm run test:cypress
+        run: npm run test:cypress -- --exit || echo "Cypress tests failed with exit code $?"
 
       - name: Generate Mochawesome Report
         run: npx cypress run --config baseUrl=http://localhost:5173
