@@ -28,27 +28,22 @@ jobs:
         run: npm run dev &
 
       - name: Run Cypress tests
-        run: npm run test:cypress -- --exit || echo "Cypress tests failed with exit code $?"
+        run: npm run test:cypress -- --exit
 
       - name: Generate Mochawesome Report
         run: npx cypress run --config baseUrl=http://localhost:5173
 
-      # - name: Archive Mochawesome Report
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: mochawesome-report
-      #     path: cypress/
-
-      - name: Send Email with Mochawesome Report
+      - name: Send Email with Mochawesome Report if Tests Failed
+        if: failure()
         uses: dawidd6/action-send-mail@v2
         with:
           server_address: 'smtp-mail.outlook.com'
           server_port: 587
           username: 'githubreport@outlook.com'
           password: "'kq'x;u@!n94'sg6W8T`"
-          subject: 'Cypress Test Report'
+          subject: 'Cypress Test Report (Failed Tests)'
           from: 'githubreport@outlook.com'
           to: 'ariful.rony10@gmail.com'
-          body: 'Please find the attached Mochawesome test report.'
-          attachments: 'mochawesome-report/mochawesome.json' 
+          body: 'Please find the attached Mochawesome test report for failed test cases.'
+          attachments: 'mochawesome-report/mochawesome.json'
           content_type: 'text/plain'

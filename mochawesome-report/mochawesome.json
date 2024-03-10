@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 1,
+    "passes": 0,
     "pending": 0,
-    "failures": 0,
-    "start": "2024-03-10T04:46:40.172Z",
-    "end": "2024-03-10T04:46:41.397Z",
-    "duration": 1225,
+    "failures": 1,
+    "start": "2024-03-10T05:08:39.187Z",
+    "end": "2024-03-10T05:08:44.175Z",
+    "duration": 4988,
     "testsRegistered": 1,
-    "passPercent": 100,
+    "passPercent": 0,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "6317af6d-46c8-4d05-b288-35dabcb89475",
+      "uuid": "32edfeb2-e160-4850-b5f0-9a59f991e91e",
       "title": "",
       "fullFile": "cypress/e2e/test.cy.js",
       "file": "cypress/e2e/test.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "03193e34-1101-4935-a98c-6f09a3c1cf32",
+          "uuid": "47a4d14f-e2ba-4ede-ab63-77106b3a42de",
           "title": "template spec",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,33 @@
               "title": "passes",
               "fullTitle": "template spec passes",
               "timedOut": null,
-              "duration": 1164,
-              "state": "passed",
-              "speed": "fast",
-              "pass": true,
-              "fail": false,
+              "duration": 4927,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.visit('http://localhost:5173/');\ncy.get('#collapseTwo > .accordion-body > :nth-child(1) > .btn').click();\n// cy.get('#collapseTwo > .accordion-body > :nth-child(11) > .btn').click();\ncy.get('.card-title').contains('Rick Sanchez').click();",
-              "err": {},
-              "uuid": "622d4435-a9f8-4643-b747-d8f7b0897314",
-              "parentUUID": "03193e34-1101-4935-a98c-6f09a3c1cf32",
+              "code": "cy.visit('http://localhost:5173/');\n// cy.get('#collapseTwo > .accordion-body > :nth-child(1) > .btn').click();\ncy.get('#collapseTwo > .accordion-body > :nth-child(11) > .btn').click();\ncy.get('.card-title').contains('Rick Sanchez').click();",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `#collapseTwo > .accordion-body > :nth-child(11) > .btn`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `#collapseTwo > .accordion-body > :nth-child(11) > .btn`, but never found it.\n    at Context.eval (webpack://rick-and-morty-wiki/./cypress/e2e/test.cy.js:5:7)",
+                "diff": null
+              },
+              "uuid": "cfdd3382-f1a8-45c5-9fea-8493857a1a14",
+              "parentUUID": "47a4d14f-e2ba-4ede-ab63-77106b3a42de",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [
-            "622d4435-a9f8-4643-b747-d8f7b0897314"
+          "passes": [],
+          "failures": [
+            "cfdd3382-f1a8-45c5-9fea-8493857a1a14"
           ],
-          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 1164,
+          "duration": 4927,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
