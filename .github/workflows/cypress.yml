@@ -27,14 +27,14 @@ jobs:
       - name: Start Vite server
         run: npm run dev &
 
-      - name: Run Cypress tests
-        run: npm run test:cypress
+      # - name: Run Cypress tests
+      #   run: npm run test:cypress
 
-      - name: Handle Cypress Test Failure
-        if: failure()
-        run: |
-          echo "Cypress tests failed. Continuing to generate report."
-          exit 0  # Set exit code to 0 to allow workflow continuation
+      # - name: Handle Cypress Test Failure
+      #   if: failure()
+      #   run: |
+      #     echo "Cypress tests failed. Continuing to generate report."
+      #     exit 0  # Set exit code to 0 to allow workflow continuation
 
       - name: Generate Mochawesome Report
         run: npx cypress run --config baseUrl=http://localhost:5173
