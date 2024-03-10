@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: mochawesome-report
-          path: cypress/reports
+          path: cypress/
 
       - name: Send Email with Mochawesome Report
         uses: dawidd6/action-send-mail@v2
