@@ -28,13 +28,7 @@ jobs:
         run: npm run dev &
 
       - name: Run Cypress tests
-        run: npm run test:cypress -- --exit
-
-      - name: Handle Cypress Test Failure
-        if: failure()
-        run: |
-          echo "Cypress tests failed. Generating report and continuing workflow."
-          exit 0  # Set exit code to 0 to allow workflow continuation
+        run: npm run test:cypress 
 
       - name: Generate Mochawesome Report
         run: npx cypress run --config baseUrl=http://localhost:5173
@@ -50,13 +44,13 @@ jobs:
 
       - name: Send Email with Mochawesome Report (if Failed)
         if: ${{ steps.Generate_Report_Status.outputs.REPORT_STATUS == 'Failed' }}
-        uses: dawidd6/action-send-mail@v2 # Assuming the action uses snake_case for outputs
+        uses: dawidd6/action-send-mail@v2  # Assuming the action uses snake_case for outputs
         with:
           server_address: 'smtp-mail.outlook.com'
           server_port: 587
           username: 'githubreport@outlook.com'
           password: "'kq'x;u@!n94'sg6W8T`"
-          subject: 'Cypress Test Report (${REPORT_STATUS})' # Use REPORT_STATUS output
+          subject: 'Cypress Test Report (${REPORT_STATUS})'  # Use REPORT_STATUS output
           from: 'githubreport@outlook.com'
           to: 'ariful.rony10@gmail.com'
           body: |
@@ -66,11 +60,9 @@ jobs:
           attachments: 'mochawesome-report/mochawesome.json'
           content_type: 'text/plain'
 
-      - name: Archive Mochawesome Report (optional)
-        if: always() # Archive regardless of test outcome
-        uses: actions/upload-artifact@v2
-        with:
-          name: mochawesome-report
-          path: cypress/
-          if-no-files-found: error # Ensure report is generated for archiving
-
+      # Optional: Archive Mochawesome Report (consider security implications)
+      # - name: Archive Mochawesome Report
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: mochawesome-report
+      #     path: cypress/
