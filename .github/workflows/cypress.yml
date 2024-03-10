@@ -33,17 +33,36 @@ jobs:
       - name: Generate Mochawesome Report
         run: npx cypress run --config baseUrl=http://localhost:5173
 
-      - name: Send Email with Mochawesome Report if Tests Failed
-        if: failure()
-        uses: dawidd6/action-send-mail@v2
+      - name: Generate Report Status
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "Test Report Status: Passed"
+          else
+            echo "Test Report Status: Failed"
+          fi
+          export REPORT_STATUS=$(echo)  # Capture output for conditional use
+
+      - name: Send Email with Mochawesome Report (if Failed)
+        if: ${{ steps.Generate_Report_Status.outputs.REPORT_STATUS == 'Failed' }}
+        uses: dawidd6/action-send-mail@v2 # Assuming the action uses snake_case for outputs
         with:
           server_address: 'smtp-mail.outlook.com'
           server_port: 587
           username: 'githubreport@outlook.com'
           password: "'kq'x;u@!n94'sg6W8T`"
-          subject: 'Cypress Test Report (Failed Tests)'
+          subject: 'Cypress Test Report (${REPORT_STATUS})' # Use REPORT_STATUS output
           from: 'githubreport@outlook.com'
           to: 'ariful.rony10@gmail.com'
-          body: 'Please find the attached Mochawesome test report for failed test cases.'
+          body: |
+            Please find the attached Mochawesome test report.
+
+            Test results: ${{ steps.Generate_Report_Status.outputs.REPORT_STATUS }}
           attachments: 'mochawesome-report/mochawesome.json'
           content_type: 'text/plain'
+
+      # Optional: Archive Mochawesome Report (consider security implications)
+      # - name: Archive Mochawesome Report
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: mochawesome-report
+      #     path: cypress/
