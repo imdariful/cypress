@@ -50,5 +50,5 @@ jobs:
           from: 'githubreport@outlook.com'
           to: 'ariful.rony10@gmail.com'
           body: 'Please find the attached Mochawesome test report.'
-          attachments: 'cypress/mochawesome-report/mochawesome.json'
+          attachments: 'mochawesome-report/mochawesome.json' 
           content_type: 'text/plain'
