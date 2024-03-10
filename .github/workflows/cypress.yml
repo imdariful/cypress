@@ -40,8 +40,8 @@ jobs:
           path: cypress/reports
 
         # Debugging
-      - name: Debug - List Reports Directory
-        run: ls -R cypress/reports
+      # - name: Debug - List Reports Directory
+      #   run: ls -R cypress/reports
 
       - name: Send Email with Mochawesome Report
         uses: dawidd6/action-send-mail@v2
