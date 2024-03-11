@@ -51,3 +51,6 @@ jobs:
             Test results: ${{ env.CYPRESS_EXIT_STATUS }}
           attachments: 'mochawesome-report/mochawesome.json'
           content_type: 'text/plain'
+
+      - name: Run Cypress tests
+        run: npm run test:cypress
