@@ -32,30 +32,18 @@ jobs:
 
       - name: Send Email with Mochawesome Report
         if: always()
-        run: |
-          echo "Sending email with Mochawesome report..."
+        uses: dawidd6/action-send-mail@v2 # Assuming the action uses snake_case for outputs
+        with:
+          server_address: 'smtp-mail.outlook.com'
+          server_port: 587
+          username: 'githubreport@outlook.com'
+          password: "'kq'x;u@!n94'sg6W8T`"
+          subject: 'Cypress Test Report (${REPORT_STATUS})' # Use REPORT_STATUS output
+          from: 'githubreport@outlook.com'
+          to: 'ariful.rony10@gmail.com'
+          body: |
+            Please find the attached Mochawesome test report.
 
-          # Create a Node.js script to send the email
-          node -e "const nodemailer = require('nodemailer');
-            const transporter = nodemailer.createTransport({
-              host: 'smtp-mail.outlook.com',
-              port: 587,
-              secure: false, // true for 465, false for other ports
-              auth: {
-                user: 'githubreport@outlook.com',
-                pass: "'kq'x;u@!n94'sg6W8T`",
-              },
-            });
-            transporter.sendMail({
-              from: 'githubreport@outlook.com',
-              to: 'ariful.rony10@gmail.com',
-              subject: 'Cypress Test Report',
-              text: 'Please find the attached Mochawesome test report.',
-              attachments: [{ path: 'cypress/reports/mochawesome-report/mochawesome.json' }],
-            }, (error, info) => {
-              if (error) {
-                console.error(error);
-              } else {
-                console.log('Email sent: ' + info.response);
-              }
-            });"
+            Test results: ${REPORT_STATUS}
+          attachments: 'mochawesome-report/mochawesome.json'
+          content_type: 'text/plain'
