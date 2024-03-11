@@ -27,76 +27,43 @@ jobs:
       - name: Start Vite server
         run: npm run dev &
 
-      - name: Run Cypress tests
-        run: npm run test:cypress
-
-      - name: Handle Cypress Test Failure
-        if: failure()
+      - name: Run Cypress tests and Generate Mochawesome Report
         run: |
-          echo "Cypress tests failed. Continuing to generate report."
-
-          # Generate Mochawesome Report
           npx cypress run --config baseUrl=http://localhost:5173
-
-          # Generate Report Status
-          if [ $? -eq 0 ]; then
-            echo "Test Report Status: Passed"
-          else
-            echo "Test Report Status: Failed"
-          fi
-          export REPORT_STATUS=$(echo)
-
-          # Send Email with Mochawesome Report
-          echo "Sending email with report..."
-
-          uses: dawidd6/action-send-mail@v2 # Assuming the action uses snake_case for outputs
-          with:
-            server_address: 'smtp-mail.outlook.com'
-            server_port: 587
-            username: 'githubreport@outlook.com'
-            password: "'kq'x;u@!n94'sg6W8T`"
-            subject: 'Cypress Test Report (${REPORT_STATUS})' # Use REPORT_STATUS output
-            from: 'githubreport@outlook.com'
-            to: 'ariful.rony10@gmail.com'
-            body: |
-              Please find the attached Mochawesome test report.
-
-              Test results: ${{ steps.Generate_Report_Status.outputs.REPORT_STATUS }}
-            attachments: 'mochawesome-report/mochawesome.json'
-            content_type: 'text/plain'
-
-      - name: Generate Mochawesome Report
-        run: npx cypress run --config baseUrl=http://localhost:5173
-
-      - name: Generate Report Status
-        run: |
-          if [ $? -eq 0 ]; then
-            echo "Test Report Status: Passed"
-          else
-            echo "Test Report Status: Failed"
-          fi
-          export REPORT_STATUS=$(echo)  # Capture output for conditional use
+          export CYPRESS_EXIT_CODE=$?
 
       - name: Send Email with Mochawesome Report
-        uses: dawidd6/action-send-mail@v2 # Assuming the action uses snake_case for outputs
-        with:
-          server_address: 'smtp-mail.outlook.com'
-          server_port: 587
-          username: 'githubreport@outlook.com'
-          password: "'kq'x;u@!n94'sg6W8T`"
-          subject: 'Cypress Test Report (${REPORT_STATUS})' # Use REPORT_STATUS output
-          from: 'githubreport@outlook.com'
-          to: 'ariful.rony10@gmail.com'
-          body: |
-            Please find the attached Mochawesome test report.
+        if: env.CYPRESS_EXIT_CODE == 0
+        run: |
+          echo "Sending email with Mochawesome report..."
 
-            Test results: ${{ steps.Generate_Report_Status.outputs.REPORT_STATUS }}
-          attachments: 'mochawesome-report/mochawesome.json'
-          content_type: 'text/plain'
+          # Install nodemailer
+          npm install nodemailer
 
-      - name: Exit Code
-        run: exit 0 # Set exit code to 0 to allow workflow continuation
-
+          # Create a Node.js script to send the email
+          node -e "const nodemailer = require('nodemailer');
+            const transporter = nodemailer.createTransport({
+              host: 'smtp-mail.outlook.com',
+              port: 587,
+              secure: false, // true for 465, false for other ports
+              auth: {
+                user: 'githubreport@outlook.com',
+                pass: "'kq'x;u@!n94'sg6W8T`",
+              },
+            });
+            transporter.sendMail({
+              from: 'githubreport@outlook.com',
+              to: 'ariful.rony10@gmail.com',
+              subject: 'Cypress Test Report',
+              text: 'Please find the attached Mochawesome test report.',
+              attachments: [{ path: 'cypress/reports/mochawesome-report/mochawesome.json' }],
+            }, (error, info) => {
+              if (error) {
+                console.error(error);
+              } else {
+                console.log('Email sent: ' + info.response);
+              }
+            });"
 
       # Optional: Archive Mochawesome Report (consider security implications)
       # - name: Archive Mochawesome Report
@@ -104,3 +71,6 @@ jobs:
       #   with:
       #     name: mochawesome-report
       #     path: cypress/
+
+      - name: Exit Code
+        run: exit $CYPRESS_EXIT_CODE
