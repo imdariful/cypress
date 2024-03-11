@@ -44,13 +44,13 @@ jobs:
         if: always()
         run: |
           test_summary=$(jq '.stats | .passes, .failures' cypress/reports/mochawesome.json)
-          test_pass_count=$(jq '.stats | .passes' cypress/reports/mochawesome.json) >> $GITHUB_ENV
-          test_fail_count=$(jq '.stats | .failures' cypress/reports/mochawesome.json) >> $GITHUB_ENV
+          test_pass_count=$(jq '.stats | .passes' cypress/reports/mochawesome.json) 
+          test_fail_count=$(jq '.stats | .failures' cypress/reports/mochawesome.json) 
           echo "Test Summary: $test_summary"  # Optional debugging output
           echo "Test Failed: $test_fail_count"
           echo "Test Passed: $test_pass_count"
-          export TEST_PASS_COUNT=$test_pass_count 
-          export TEST_FAIL_COUNT=$test_fail_count
+          export TEST_PASS_COUNT=$(jq '.stats | .passes' cypress/reports/mochawesome.json) 
+          export TEST_FAIL_COUNT=$(jq '.stats | .failures' cypress/reports/mochawesome.json)
 
       - name: Send Email with Data
         if: always()
@@ -67,7 +67,7 @@ jobs:
             Please find the attached Mochawesome test report.
 
             Test results:
-              - Passed: ${{ steps.read_test_data.outputs.TEST_PASS_COUNT }} || {{ secrets.TEST_PASS_COUNT }}
-              - Failed: ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }} || {{ secrets.test_fail_count }}
+              - Passed: ${{ steps.read_test_data.outputs.TEST_PASS_COUNT }} 
+              - Failed: ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }}
           attachments: 'cypress/reports/mochawesome.json'
           content_type: 'text/plain'
