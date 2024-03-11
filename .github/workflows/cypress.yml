@@ -35,9 +35,6 @@ jobs:
         run: |
           echo "Sending email with Mochawesome report..."
 
-          # Install nodemailer
-          npm install nodemailer
-
           # Create a Node.js script to send the email
           node -e "const nodemailer = require('nodemailer');
             const transporter = nodemailer.createTransport({

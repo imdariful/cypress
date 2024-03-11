@@ -2243,10 +2243,10 @@ node-releases@^2.0.8:
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.12.tgz"
   integrity sha512-QzsYKWhXTWx8h1kIvqfnC++o0pEmpRQA/aenALsL2F4pqNVr7YzcdMlDij5WBnwftRbJCNJL/O7zdKaxKPHqgQ==
 
-nodemailer@^6.9.11:
-  version "6.9.11"
-  resolved "https://registry.npmjs.org/nodemailer/-/nodemailer-6.9.11.tgz"
-  integrity sha512-UiAkgiERuG94kl/3bKfE8o10epvDnl0vokNEtZDPTq9BWzIl6EFT9336SbIT4oaTBD8NmmUTLsQyXHV82eXSWg==
+nodemailer@^6.9.12:
+  version "6.9.12"
+  resolved "https://registry.npmjs.org/nodemailer/-/nodemailer-6.9.12.tgz"
+  integrity sha512-pnLo7g37Br3jXbF0bl5DekBJihm2q+3bB3l2o/B060sWmb5l+VqeScAQCBqaQ+5ezRZFzW5SciZNGdRDEbq89w==
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
