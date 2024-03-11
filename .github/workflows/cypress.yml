@@ -33,7 +33,7 @@ jobs:
           export CYPRESS_EXIT_CODE=$?
 
       - name: Send Email with Mochawesome Report
-        if: env.CYPRESS_EXIT_CODE == '0' || env.CYPRESS_EXIT_CODE == '1'
+        if: ${{ env.CYPRESS_EXIT_CODE == '0' || env.CYPRESS_EXIT_CODE == '1' }}
         run: |
           echo "Sending email with Mochawesome report..."
 
