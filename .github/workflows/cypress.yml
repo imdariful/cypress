@@ -50,8 +50,5 @@ jobs:
             Please find the attached Mochawesome test report.
 
             Test results: ${{ env.CYPRESS_EXIT_STATUS }}
-          attachments: |
-            "mochawesome-report/mochawesome.html"
-            "mochawesome-report/assets/**/*"
-
+          attachments: 'cypress/reports/report.html'
           content_type: 'text/plain'

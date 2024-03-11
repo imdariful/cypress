@@ -1,16 +1,13 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
-  e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
-  },
+  e2e: {},
   reporter: 'mochawesome',
-  mochawesomeReporter: {
+  reporterOptions: {
     reportDir: 'cypress/reports',
+    // reporter: generate, // Use the imported generate function
     overwrite: true,
     html: true,
-    json: false,
+    json: true,
   },
 });
