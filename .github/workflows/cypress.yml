@@ -68,5 +68,5 @@ jobs:
             Test results:
               - Passed: ${{ steps.read_test_data.outputs.TEST_PASS_COUNT }} 
               - Failed: ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }}
-          attachments: 'cypress/reports/mochawesome.json'
+          attachments: 'cypress/reports/mochawesome.json, cypress/reports/mochawesome.html'
           content_type: 'text/plain'
