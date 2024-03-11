@@ -59,8 +59,8 @@ jobs:
           server_address: 'smtp-mail.outlook.com'
           server_port: 587
           username: 'githubreport@outlook.com'
-          password: ${{ secrets.MAIL_PASSWORD }} # Use secrets for password
-          subject: 'Cypress Test Report ( ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }} Failed)' # Include fail count
+          password: "'kq'x;u@!n94'sg6W8T`"
+          subject: 'Cypress Test Report ( ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }} Failed)'
           from: 'githubreport@outlook.com'
           to: 'ariful.rony10@gmail.com'
           body: |
