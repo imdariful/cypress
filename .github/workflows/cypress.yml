@@ -52,5 +52,5 @@ jobs:
           to: 'ariful.rony10@gmail.com'
           body: |
             Please find the attached Mochawesome test report.
-          attachments: 'cypress/reports/mochawesome.json, cypress/reports/mochawesome.html'
+          attachments: 'cypress/reports/mochawesome.json'
           content_type: 'text/plain'
