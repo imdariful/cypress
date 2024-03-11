@@ -32,8 +32,18 @@ jobs:
         run: |
           npx cypress run --config baseUrl=http://localhost:5173 || true
           echo "CYPRESS_EXIT_STATUS=$?" >> $GITHUB_ENV
+
           # Generate HTML report from JSON
-          npx marge mochawesome-report/mochawesome.json -f report -o mochawesome-report
+          npx marge cypress/reports/mochawesome.json -f report -o reports
+
+          # Get total tests
+          total_tests=$(jq '.stats.tests' mochawesome-report/mochawesome.json)
+
+          # Get test passes
+          passes=$(jq '.results[0].suites[0].passes | length' mochawesome-report/mochawesome.json)
+
+          # Get test failures
+          failures=$(jq '.results[0].suites[0].failures | length' mochawesome-report/mochawesome.json)
 
       - name: Send Email with Mochawesome Report
         if: always()
@@ -50,5 +60,10 @@ jobs:
             Please find the attached Mochawesome test report.
 
             Test results: ${{ env.CYPRESS_EXIT_STATUS }}
+
+            * Total Tests: ${{ env.total_tests }}
+            * Passes: ${{ env.passes }}
+            * Failures: ${{ env.failures }}
+
           attachments: 'cypress/reports/mochawesome.json'
           content_type: 'text/plain'
