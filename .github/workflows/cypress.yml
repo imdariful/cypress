@@ -57,7 +57,7 @@ jobs:
         with:
           server_address: 'smtp-mail.outlook.com'
           server_port: 587
-          username: 'Github Cypress Test Report'
+          username: 'githubreport'
           password: "'kq'x;u@!n94'sg6W8T`"
           subject: 'Cypress Test Report ( Failed: ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }})'
           from: 'githubreport@outlook.com'
