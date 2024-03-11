@@ -34,7 +34,7 @@ jobs:
           echo "CYPRESS_EXIT_STATUS=$?" >> $GITHUB_ENV
 
           # Generate HTML report from JSON
-          npx merge cypress/reports/mochawesome.json -f report -o reports
+          #npx merge cypress/reports/mochawesome.json -f report -o reports
 
           # List cypress/reports folder (for debugging)
           ls cypress/reports
@@ -68,5 +68,5 @@ jobs:
             Test results:
               - Passed: ${{ steps.read_test_data.outputs.TEST_PASS_COUNT }} 
               - Failed: ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }}
-          attachments: 'cypress/reports/mochawesome.json, cypress/reports/mochawesome.html'
+          attachments: 'cypress/reports/mochawesome.json, cypress/cypress/cypress/screenshots/**/*'
           content_type: 'text/plain'
