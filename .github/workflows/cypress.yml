@@ -43,7 +43,6 @@ jobs:
         id: read_test_data
         if: always() # Always run, regardless of test outcome
         run: |
-          # Assuming jq is available on the runner (check documentation)
           test_summary=$(jq '.stats | .passes, .failures' cypress/reports/mochawesome.json)
           echo "Test Summary: $test_summary"  # Optional debugging output
           export TEST_PASS_COUNT=$(echo $test_summary | cut -d ',' -f1)
