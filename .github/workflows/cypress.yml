@@ -44,9 +44,11 @@ jobs:
         if: always()
         run: |
           test_summary=$(jq '.stats | .passes, .failures' cypress/reports/mochawesome.json)
+          test_pass_count=$(jq '.stats | .passes' cypress/reports/mochawesome.json)
+          test_fail_count=$(jq '.stats | .failures' cypress/reports/mochawesome.json)
           echo "Test Summary: $test_summary"  # Optional debugging output
-          export TEST_PASS_COUNT=$(echo $test_summary | cut -d ',' -f1)
-          export TEST_FAIL_COUNT=$(echo $test_summary | cut -d ',' -f2)
+          export TEST_PASS_COUNT=$test_pass_count
+          export TEST_FAIL_COUNT=$test_fail_count
 
       - name: Send Email with Data
         if: always()
@@ -55,7 +57,7 @@ jobs:
           server_address: 'smtp-mail.outlook.com'
           server_port: 587
           username: 'githubreport@outlook.com'
-          password: ${{secrets.MAIL_PASSWORD}} # Use secrets for password
+          password: ${{ secrets.MAIL_PASSWORD }} # Use secrets for password
           subject: 'Cypress Test Report ( ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }} Failed)' # Include fail count
           from: 'githubreport@outlook.com'
           to: 'ariful.rony10@gmail.com'
