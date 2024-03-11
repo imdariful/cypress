@@ -37,13 +37,13 @@ jobs:
           npx marge cypress/reports/mochawesome.json -f report -o reports
 
           # Get total tests
-          total_tests=$(jq '.stats.tests' mochawesome-report/mochawesome.json)
+          total_tests=$(jq '.stats.tests' cypress/reports/mochawesome.json)
 
           # Get test passes
-          passes=$(jq '.results[0].suites[0].passes | length' mochawesome-report/mochawesome.json)
+          passes=$(jq '.results[0].suites[0].passes | length' cypress/reports/mochawesome.json)
 
           # Get test failures
-          failures=$(jq '.results[0].suites[0].failures | length' mochawesome-report/mochawesome.json)
+          failures=$(jq '.results[0].suites[0].failures | length' cypress/reports/mochawesome.json)
 
       - name: Send Email with Mochawesome Report
         if: always()
