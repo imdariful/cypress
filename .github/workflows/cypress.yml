@@ -47,6 +47,8 @@ jobs:
           test_pass_count=$(jq '.stats | .passes' cypress/reports/mochawesome.json)
           test_fail_count=$(jq '.stats | .failures' cypress/reports/mochawesome.json)
           echo "Test Summary: $test_summary"  # Optional debugging output
+          echo "Test Failed: $test_fail_count"
+          echo "Test Passed: $test_pass_count"
           export TEST_PASS_COUNT=$test_pass_count
           export TEST_FAIL_COUNT=$test_fail_count
 
