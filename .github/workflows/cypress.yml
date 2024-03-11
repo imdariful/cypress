@@ -46,10 +46,8 @@ jobs:
             echo "Test Report Status: Failed"
           fi
           export REPORT_STATUS=$(echo)  # Capture output for conditional use
-          exit 0  # Set exit code to 0 to allow workflow continuation
 
-      - name: Send Email with Mochawesome Report (if Failed)
-        if: ${{ steps.Generate_Report_Status.outputs.REPORT_STATUS == 'Failed' }}
+      - name: Send Email with Mochawesome Report
         uses: dawidd6/action-send-mail@v2 # Assuming the action uses snake_case for outputs
         with:
           server_address: 'smtp-mail.outlook.com'
@@ -65,6 +63,10 @@ jobs:
             Test results: ${{ steps.Generate_Report_Status.outputs.REPORT_STATUS }}
           attachments: 'mochawesome-report/mochawesome.json'
           content_type: 'text/plain'
+
+      - name: Exit Code
+        run: exit 0 # Set exit code to 0 to allow workflow continuation
+
 
       # Optional: Archive Mochawesome Report (consider security implications)
       # - name: Archive Mochawesome Report
