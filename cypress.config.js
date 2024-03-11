@@ -7,7 +7,7 @@ export default defineConfig({
     reportDir: 'cypress/reports',
     // reporter: generate, // Use the imported generate function
     overwrite: true,
-    html: false,
+    html: true,
     json: true,
   },
 });

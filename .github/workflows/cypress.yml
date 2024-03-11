@@ -36,14 +36,8 @@ jobs:
           # Generate HTML report from JSON
           npx marge cypress/reports/mochawesome.json -f report -o reports
 
-          # Get total tests
-          total_tests=$(jq '.stats.tests' cypress/reports/mochawesome.json)
-
-          # Get test passes
-          passes=$(jq '.results[0].suites[0].passes | length' cypress/reports/mochawesome.json)
-
-          # Get test failures
-          failures=$(jq '.results[0].suites[0].failures | length' cypress/reports/mochawesome.json)
+          # List cypress/reports fonder
+          ls cypress/reports
 
       - name: Send Email with Mochawesome Report
         if: always()
@@ -53,17 +47,10 @@ jobs:
           server_port: 587
           username: 'githubreport@outlook.com'
           password: "'kq'x;u@!n94'sg6W8T`"
-          subject: 'Cypress Test Report (Exit Status: ${{ env.CYPRESS_EXIT_STATUS }})'
+          subject: 'Cypress Test Report '
           from: 'githubreport@outlook.com'
           to: 'ariful.rony10@gmail.com'
           body: |
             Please find the attached Mochawesome test report.
-
-            Test results: ${{ env.CYPRESS_EXIT_STATUS }}
-
-            * Total Tests: ${{ env.total_tests }}
-            * Passes: ${{ env.passes }}
-            * Failures: ${{ env.failures }}
-
-          attachments: 'cypress/reports/mochawesome.json'
+          attachments: 'cypress/reports/mochawesome.json, cypress/reports/mochawesome.html'
           content_type: 'text/plain'
