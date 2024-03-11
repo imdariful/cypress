@@ -49,8 +49,8 @@ jobs:
           export TEST_PASS_COUNT=$(echo $test_summary | cut -d ',' -f1)
           export TEST_FAIL_COUNT=$(echo $test_summary | cut -d ',' -f2)
 
-      - name: Send Email with Data (if Tests Fail)
-        if: ${{ steps.cypress.outputs.CYPRESS_EXIT_STATUS != 0 }} # Send only on failures
+      - name: Send Email with Data
+        if: always()
         uses: dawidd6/action-send-mail@v2
         with:
           server_address: 'smtp-mail.outlook.com'
