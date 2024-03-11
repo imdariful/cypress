@@ -47,8 +47,9 @@ jobs:
           echo "Test Summary: $test_summary" 
           echo "Test Failed: $test_fail_count"
           echo "Test Passed: $test_pass_count"
-          export TEST_PASS_COUNT=$(jq '.results[0].suites[0].passes | length' cypress/reports/mochawesome.json) 
-          export TEST_FAIL_COUNT=$(jq '.results[0].suites[0].failures | length' cypress/reports/mochawesome.json)
+          # Set job outputs
+          echo "::set-output name=TEST_PASS_COUNT::$(jq '.results[0].suites[0].passes | length' cypress/reports/mochawesome.json)"
+          echo "::set-output name=TEST_FAIL_COUNT::$(jq '.results[0].suites[0].failures | length' cypress/reports/mochawesome.json)"
 
       - name: Send Email with Data
         if: always()
