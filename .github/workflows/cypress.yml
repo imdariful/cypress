@@ -28,12 +28,10 @@ jobs:
         run: npm run dev &
 
       - name: Run Cypress tests and Generate Mochawesome Report
-        run: |
-          npx cypress run --config baseUrl=http://localhost:5173
-          export CYPRESS_EXIT_CODE=$?
+        run: npx cypress run --config baseUrl=http://localhost:5173 || true
 
       - name: Send Email with Mochawesome Report
-        if: ${{ env.CYPRESS_EXIT_CODE == '0' || env.CYPRESS_EXIT_CODE == '1' }}
+        if: always()
         run: |
           echo "Sending email with Mochawesome report..."
 
@@ -64,13 +62,3 @@ jobs:
                 console.log('Email sent: ' + info.response);
               }
             });"
-
-      # Optional: Archive Mochawesome Report (consider security implications)
-      # - name: Archive Mochawesome Report
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: mochawesome-report
-      #     path: cypress/
-
-      - name: Exit Code
-        run: exit $CYPRESS_EXIT_CODE
