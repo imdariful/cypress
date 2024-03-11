@@ -36,21 +36,41 @@ jobs:
           # Generate HTML report from JSON
           npx marge cypress/reports/mochawesome.json -f report -o reports
 
-          # List cypress/reports fonder
+          # List cypress/reports folder (for debugging)
           ls cypress/reports
 
-      - name: Send Email with Mochawesome Report
-        if: always()
+      - name: Read Test Pass/Fail Count from Mochawesome Report (using jq)
+        id: read_test_data
+        if: always() # Always run, regardless of test outcome
+        run: |
+          # Assuming jq is available on the runner (check documentation)
+          test_summary=$(jq '.stats | .passes, .failures' cypress/reports/mochawesome.json)
+          echo "Test Summary: $test_summary"  # Optional debugging output
+          export TEST_PASS_COUNT=$(echo $test_summary | cut -d ',' -f1)
+          export TEST_FAIL_COUNT=$(echo $test_summary | cut -d ',' -f2)
+
+      - name: Send Email with Data (if Tests Fail)
+        if: ${{ steps.cypress.outputs.CYPRESS_EXIT_STATUS != 0 }} # Send only on failures
         uses: dawidd6/action-send-mail@v2
         with:
           server_address: 'smtp-mail.outlook.com'
           server_port: 587
           username: 'githubreport@outlook.com'
-          password: "'kq'x;u@!n94'sg6W8T`"
-          subject: 'Cypress Test Report '
+          password: ${{ secrets.GITHUB_WORKFLOW_SECRET }} # Use secrets for password
+          subject: 'Cypress Test Report ( ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }} Failed)' # Include fail count
           from: 'githubreport@outlook.com'
           to: 'ariful.rony10@gmail.com'
           body: |
             Please find the attached Mochawesome test report.
+
+            Test results:
+              - Passed: ${{ steps.read_test_data.outputs.TEST_PASS_COUNT }}
+              - Failed: ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }}
           attachments: 'cypress/reports/mochawesome.json'
           content_type: 'text/plain'
+# Optional: Archive Mochawesome Report (consider security implications)
+# - name: Archive Mochawesome Report
+#   uses: actions/upload-artifact@v2
+#   with:
+#     name: mochawesome-report
+#     path: cypress/reports/
