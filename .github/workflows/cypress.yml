@@ -34,7 +34,7 @@ jobs:
           echo "CYPRESS_EXIT_STATUS=$?" >> $GITHUB_ENV
 
           # Generate HTML report from JSON
-          npx marge cypress/reports/mochawesome.json -f report -o reports
+          npx merge cypress/reports/mochawesome.json -f report -o reports
 
           # List cypress/reports folder (for debugging)
           ls cypress/reports
