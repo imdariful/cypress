@@ -51,6 +51,11 @@ jobs:
           echo "::set-output name=TEST_PASS_COUNT::$(jq '.results[0].suites[0].passes | length' cypress/reports/mochawesome.json)"
           echo "::set-output name=TEST_FAIL_COUNT::$(jq '.results[0].suites[0].failures | length' cypress/reports/mochawesome.json)"
 
+      - name: Make a post request using curl
+        if: always()
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d @cypress/reports/mochawesome.json https://json-reciver-759273bf5919.herokuapp.com/receiv
+
       - name: Send Email with Data
         if: always()
         uses: dawidd6/action-send-mail@v2
