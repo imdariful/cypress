@@ -54,7 +54,7 @@ jobs:
       - name: Make a post request using curl 
         if: always()
         run: |
-          curl -X POST -H "Content-Type: application/json" -d @cypress/reports/mochawesome.json https://json-reciver-759273bf5919.herokuapp.com/receiv
+          curl -X POST -H "Content-Type: application/json" -d @cypress/reports/mochawesome.json https://json-reciver-759273bf5919.herokuapp.com/receive
 
       - name: Send Email with Data
         if: always()
