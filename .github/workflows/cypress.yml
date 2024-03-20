@@ -60,7 +60,7 @@ jobs:
 
       - name: Send Email with Data
         if: always()
-        uses: dawidd6/action-send-mail@v2
+        uses: dawidd6/action-send-mail@v3
         with:
           server_address: 'smtp-mail.outlook.com'
           server_port: 587
@@ -69,7 +69,7 @@ jobs:
           subject: 'Cypress Test Report ( Failed: ${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }})'
           from: 'githubreport@outlook.com'
           to: 'ariful.rony10@gmail.com'
-          body: |
+          html_body: |
             <!DOCTYPE html>
             <html lang="en">
               <head>
