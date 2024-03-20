@@ -50,6 +50,7 @@ jobs:
           # Set job outputs
           echo "::set-output name=TEST_PASS_COUNT::$(jq '.results[0].suites[0].passes | length' cypress/reports/mochawesome.json)"
           echo "::set-output name=TEST_FAIL_COUNT::$(jq '.results[0].suites[0].failures | length' cypress/reports/mochawesome.json)"
+          echo "::set-output name=TOTAL_TESTCASE_RUN::$(jq '.results[0].suites[0].tests | length' cypress/reports/mochawesome.json)"
 
       - name: Make a post request using curl
         if: always()
@@ -78,13 +79,22 @@ jobs:
                 <title>Document</title>
                 <style>
                   body {
-                    padding: 10px;
+                    border: 10px solid red;
+                    background-color: rgb(255, 0, 0);
+                  }
+                  .container {
+                    background: rgba(255, 255, 255, 0.8);
+                    border-radius: 16px;
+                    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                    backdrop-filter: blur(5px);
+                    -webkit-backdrop-filter: blur(5px);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
                   }
                   table {
                     font-family: arial, sans-serif;
                     border-collapse: collapse;
                     width: 100%;
-                    border-radius: 20px; 
+                    border-radius: 20px;
                   }
 
                   td,
@@ -101,14 +111,10 @@ jobs:
                   }
                 </style>
               </head>
-              <body style="background-color: red">
+              <body>
                 <div
-                  style="
-                    background-color: white;
-                    border-radius: 10px;
-                    margin: 10px;
-                    padding: 10px;
-                  "
+                  style="border-radius: 10px; margin: 10px; padding: 10px"
+                  class="container"
                 >
                   <header style="text-align: center">
                     <img
@@ -118,7 +124,7 @@ jobs:
                   </header>
                   <main style="text-align: center">
                     <h2>Cypress Test Report</h2>
-                    <h3>Total Test Run: <span style="font-weight: 700"></span></h3>
+                    <h3>Total Test Run: <span style="font-weight: 700">${{ steps.read_test_data.outputs.TOTAL_TESTCASE_RUN }}</span></h3>
                     <table>
                       <tr>
                         <th style="background-color: rgb(152, 253, 152)">Passed</th>
