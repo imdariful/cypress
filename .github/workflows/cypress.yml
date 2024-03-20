@@ -135,7 +135,7 @@ jobs:
                         <td>${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }}</td>
                       </tr>
                     </table>
-                    <p>For more details please visit: ${{github.repository}}</p>
+                    <p>For more details please visit: <a href="https://github.com/${{github.repository}}">https://github.com/${{github.repository}}</a></p>
                   </main>
                 </div>
               </body>
