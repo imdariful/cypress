@@ -60,7 +60,7 @@ jobs:
 
       - name: Send Email with Data
         if: always()
-        uses: dawidd6/action-send-mail@v2
+        uses: dawidd6/action-send-mail@v3
         with:
           server_address: 'smtp-mail.outlook.com'
           server_port: 587
