@@ -125,8 +125,8 @@ jobs:
                         <th style="background-color: rgb(255, 135, 135)">Failed</th>
                       </tr>
                       <tr>
-                        <td>2</td>
-                        <td>5</td>
+                        <td>${{ steps.read_test_data.outputs.TEST_PASS_COUNT }}</td>
+                        <td>${{ steps.read_test_data.outputs.TEST_FAIL_COUNT }}</td>
                       </tr>
                     </table>
                     <p>For more details please visit: ${{github.repository}}</p>
